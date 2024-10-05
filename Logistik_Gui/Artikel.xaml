@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="Logistik_Gui.Artikel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Logistik_Gui">
+    <Grid Background="#E8E8E8" Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Content="Artikel Eingabe" 
+               HorizontalAlignment="Center" 
+               FontSize="16" FontWeight="Bold" 
+               Grid.Row="0"/>
+        <StackPanel VerticalAlignment="Top" 
+                    Grid.Row="1">
+            <TextBox x:Name="SeriennummerEingabe"
+                     Width="200" 
+                     Margin="10"
+                     KeyDown="BarcodeInput_KeyDown"/>
+
+            <ItemsControl x:Name="ArticlesPanel" 
+                          ItemsSource="{Binding Articles}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="5">
+                            <TextBlock Text="{Binding Artikelnummer}" FontWeight="Bold" FontSize="14"/>
+                            <TextBlock Text="{Binding Count, StringFormat='Anzahl: {0}'}" FontSize="12"/>
+                            <DataGrid ItemsSource="{Binding SerialNumbers}" AutoGenerateColumns="False" Height="100" IsReadOnly="True">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Nummer" Binding="{Binding Nummer}"/>
+                                    <DataGridTextColumn Header="Seriennummer" Binding="{Binding Seriennummer}"/>
+                                    <DataGridTextColumn Header="Artikelnummer" Binding="{Binding Artikelnummer}"/>
+                                    <DataGridTextColumn Header="Artikel" Binding="{Binding Artikel}"/>
+                                    <DataGridTextColumn Header="Hersteller" Binding="{Binding Hersteller}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <Button Grid.Column="1"
+                    Height="20"
+                    Width="60"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom" 
+                    Click="OnSpeichern"
+                    Content="Speichern"
+                    Background="LightGreen"
+                    Margin="10"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
